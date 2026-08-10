@@ -1,4 +1,4 @@
-package _Test02;
+package My_test.ch02;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -61,10 +61,10 @@ public class Player extends JLabel implements Moveable {
         left = true;
         setIcon(playerL);
 
-        new Thread(()->{
+        new Thread(() -> {
             while (left) {
                 x -= SPEED;
-                setLocation(x,y);
+                setLocation(x, y);
                 try {
                     Thread.sleep(10);
                 } catch (InterruptedException e) {
@@ -99,7 +99,28 @@ public class Player extends JLabel implements Moveable {
 
     @Override
     public void up() {
-
+        new Thread(() -> {
+            up = true;
+            for (int i = 0; i < 50; i++) {
+                y -= JUMP_SPEED;
+                setLocation(x, y);
+                try {
+                    Thread.sleep(2);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            for (int j = 0; j < 50; j++) {
+                y += JUMP_SPEED;
+                setLocation(x, y);
+                try {
+                    Thread.sleep(2);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            up = false;
+        }).start();
     }
 
     @Override

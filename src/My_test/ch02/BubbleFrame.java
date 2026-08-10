@@ -1,4 +1,4 @@
-package _Test02;
+package My_test.ch02;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;

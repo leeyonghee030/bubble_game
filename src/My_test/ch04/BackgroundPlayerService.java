@@ -76,5 +76,10 @@ public class BackgroundPlayerService implements  Runnable {
     private boolean isRed(Color color) {
         return color.getRed() == 255 && color.getGreen() == 0 && color.getBlue() == 0;
     }
+    public boolean bubbleIsRed(int bubbleX,int bubbleY) {
+        Color bubbleLeftColor = new Color(image.getRGB( bubbleX + 5 ,bubbleY+25));
+        return isRed(bubbleLeftColor);
+    }
+
 
 }

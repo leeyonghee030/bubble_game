@@ -1,13 +1,16 @@
 package My_test.ch04;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.swing.*;
 
 @Getter
 public class Bubble extends JLabel {
 
+    @Setter
     private int x;
+    @Setter
     private int y;
     private Player player;
     private ImageIcon bubbleIcon;
@@ -32,6 +35,7 @@ public class Bubble extends JLabel {
         setIcon(bubbleIcon);
         setSize(50,50);
     }
+
 
 
 

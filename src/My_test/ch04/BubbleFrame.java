@@ -9,6 +9,8 @@ public class BubbleFrame extends JFrame {
     private JLabel backgroundMap;
     private Player player;
 
+    private boolean bubbleL;
+    private boolean bubbleR;
 
     public BubbleFrame() {
         initData();
@@ -44,12 +46,16 @@ public class BubbleFrame extends JFrame {
             public void keyPressed(KeyEvent e) {
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_LEFT :
+                        bubbleL = true;
+                        bubbleR = false;
                         // 이미 왼쪽으로 이동 중이면 무시 (스레드 중복 생성 방지)
                         if (!player.isLeft() && !player.isLeftWallCrash()) {
                             player.left();
                         }
                         break;
                     case KeyEvent.VK_RIGHT:
+                        bubbleL = false;
+                        bubbleR = true;
                         if (!player.isRight() && !player.isRightWallCrash() ) {
                             player.right();
                         }
@@ -79,8 +85,12 @@ public class BubbleFrame extends JFrame {
 
                         break;
                     case KeyEvent.VK_SPACE:
-//                        add(player.fireBubble());
-                        player.fireBubble(BubbleFrame.this);
+                        if (bubbleL) {
+                            player.fireBubbleL(BubbleFrame.this);
+                        }
+                        if (bubbleR){
+                            player.fireBubbleR(BubbleFrame.this);
+                        }
                         break;
                 }
             }

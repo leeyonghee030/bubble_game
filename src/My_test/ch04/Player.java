@@ -1,5 +1,6 @@
 package My_test.ch04;
 
+import _test04.Moveable;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,6 +27,8 @@ public class Player extends JLabel implements Moveable {
     private boolean right;
     private boolean up;
     private boolean down;
+
+
 
     // 플레이어의 벽 충돌 상태
     @Setter
@@ -128,10 +131,69 @@ public class Player extends JLabel implements Moveable {
         }).start();
     }
 
-    //물방울 발사
-    public void fireBubble(BubbleFrame bubbleFrame) {
+
+//    물방울 발사
+    public void fireBubbleL(BubbleFrame bubbleFrame) {
         Bubble bubble = new Bubble(this);
         bubbleFrame.add(bubble);
 
+        new Thread(() -> {
+            Boolean bubbleLeft = false;
+            BackgroundPlayerService service = new BackgroundPlayerService(this);
+            while (true) {
+                if (!bubbleLeft) {
+                    bubble.setX(bubble.getX()-10);
+                    bubble.setLocation(bubble.getX(), bubble.getY());
+                    bubbleLeft = service.bubbleIsRed(bubble.getX(), bubble.getY());
+                } else {
+                    bubble.setY(bubble.getY()-10);
+                    bubble.setLocation(bubble.getX(), bubble.getY());
+                    if (bubble.getY() <= 100) {
+                        return;
+                    }
+                }
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }).start();
     }
+
+    public void fireBubbleR(BubbleFrame bubbleFrame) {
+        Bubble bubble = new Bubble(this);
+        bubbleFrame.add(bubble);
+
+        new Thread(() -> {
+            Boolean bubbleLeft = false;
+            BackgroundPlayerService service = new BackgroundPlayerService(this);
+            while (true) {
+                if (!bubbleLeft) {
+                    bubble.setX(bubble.getX()+10);
+                    bubble.setLocation(bubble.getX(), bubble.getY());
+                    bubbleLeft = service.bubbleIsRed(bubble.getX(), bubble.getY());
+                } else {
+                    bubble.setY(bubble.getY()-10);
+                    bubble.setLocation(bubble.getX(), bubble.getY());
+                    if (bubble.getY() <= 100) {
+                        return;
+                    }
+                }
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }).start();
+    }
+
+
 }
+
+
+
+
+
+

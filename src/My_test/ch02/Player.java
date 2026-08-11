@@ -14,6 +14,8 @@ public class Player extends JLabel implements Moveable {
     private ImageIcon playerR;
     private ImageIcon playerL;
 
+
+
     //플레이어 속도 상태
     private final int SPEED = 4;
     private final int JUMP_SPEED = 2;
@@ -58,33 +60,14 @@ public class Player extends JLabel implements Moveable {
     //Alt+ ins 메소드 구현
     @Override
     public void left() {
-        left = true;
+        right = false;
         setIcon(playerL);
 
-        new Thread(() -> {
-            while (left) {
-                x -= SPEED;
-                setLocation(x, y);
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }).start();
-
-
-    }
-
-    @Override
-    public void right() {
-        right = true;
-        setIcon(playerR);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (right) {
-                    x += SPEED;
+        if ( left == false) {
+            left = true;
+            new Thread(() -> {
+                while (left) {
+                    x -= SPEED;
                     setLocation(x, y);
                     try {
                         Thread.sleep(10);
@@ -92,34 +75,68 @@ public class Player extends JLabel implements Moveable {
                         throw new RuntimeException(e);
                     }
                 }
-            }
-        }).start();
+            }).start();
+
+        }
+
+
+    }
+
+    @Override
+    public void right() {
+        left = false;
+        setIcon(playerR);
+        if (right == false) {
+            right = true;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (right) {
+                        x += SPEED;
+
+                        setLocation(x, y);
+                        try {
+                            Thread.sleep(10);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }
+            }).start();
+
+        }
 
     }
 
     @Override
     public void up() {
         new Thread(() -> {
-            up = true;
-            for (int i = 0; i < 50; i++) {
-                y -= JUMP_SPEED;
-                setLocation(x, y);
-                try {
-                    Thread.sleep(2);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            for (int j = 0; j < 50; j++) {
-                y += JUMP_SPEED;
-                setLocation(x, y);
-                try {
-                    Thread.sleep(2);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+            down = false;
+            if (up == false) {
+                up = true;
+                for (int i = 0; i < 50; i++) {
+                    y -= JUMP_SPEED;
+                    setLocation(x, y);
+                    try {
+                        Thread.sleep(2);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
             up = false;
+            if (down == false) {
+                down = true;
+                for (int j = 0; j < 50; j++) {
+                    y += JUMP_SPEED;
+                    setLocation(x, y);
+                    try {
+                        Thread.sleep(2);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
         }).start();
     }
 

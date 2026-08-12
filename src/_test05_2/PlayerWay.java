@@ -1,4 +1,4 @@
-package _test05;
+package _test05_2;
 
 
 //[enum] 플레이어의 방향 상태 관리

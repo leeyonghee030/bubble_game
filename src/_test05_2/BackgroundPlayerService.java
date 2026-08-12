@@ -1,4 +1,4 @@
-package _test05;
+package _test05_2;
 
 
 import javax.imageio.ImageIO;

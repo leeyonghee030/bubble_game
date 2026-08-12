@@ -1,4 +1,4 @@
-package _test04;
+package _test05;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
@@ -81,7 +81,6 @@ public class BubbleFrame extends JFrame {
                     case KeyEvent.VK_SPACE:
 //                        add(player.fireBubble());
                         player.fireBubble(BubbleFrame.this);
-
                         break;
                 }
             }
